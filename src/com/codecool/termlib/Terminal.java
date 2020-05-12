@@ -26,12 +26,14 @@ public class Terminal {
     private static final String STYLE = "m";
 
     /**
+     *
      * Reset printing rules in effect to terminal defaults.
      *
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
     public void resetStyle() {
+        System.out.print(CONTROL_CODE + Attribute.valueOf("RESET").ordinal() + STYLE);
     }
 
     /**
@@ -40,18 +42,22 @@ public class Terminal {
      * Might reset cursor position.
      */
     public void clearScreen() {
+        System.out.print(CONTROL_CODE + CLEAR);
     }
 
     /**
      * Move cursor to the given position.
      *
-     * Positions are counted from one.  Cursor position 1,1 is at
+     * Psitions are counted from one.  Cursor position 1,1 is at
      * the top left corner of the screen.
      *
      * @param x Column number.
      * @param y Row number.
      */
     public void moveTo(Integer x, Integer y) {
+
+        System.out.print(CONTROL_CODE + y + ";" + x + MOVE);
+
     }
 
     /**
@@ -62,6 +68,7 @@ public class Terminal {
      * @param color The color to set.
      */
     public void setColor(Color color) {
+        System.out.print(CONTROL_CODE + (30+color.ordinal()) + STYLE);
     }
 
     /**
@@ -72,6 +79,8 @@ public class Terminal {
      * @param color The background color to set.
      */
     public void setBgColor(Color color) {
+
+        System.out.print(CONTROL_CODE + (40+color.ordinal()) + STYLE);
     }
 
     /**
