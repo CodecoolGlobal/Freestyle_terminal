@@ -55,9 +55,7 @@ public class Terminal {
      * @param y Row number.
      */
     public void moveTo(Integer x, Integer y) {
-
         System.out.print(CONTROL_CODE + y + ";" + x + MOVE);
-
     }
 
     /**
@@ -91,6 +89,11 @@ public class Terminal {
      * well.
      */
     public void setUnderline() {
+        System.out.println(CONTROL_CODE+ "4m");
+    }
+
+    public void setDim() {
+        System.out.println(CONTROL_CODE+ "2m");
     }
 
     /**
@@ -103,6 +106,13 @@ public class Terminal {
      * @param amount Step the cursor this many times.
      */
     public void moveCursor(Direction direction, Integer amount) {
+
+        switch(direction) {
+            case UP -> System.out.println(CONTROL_CODE + amount + "A");
+            case DOWN -> System.out.println(CONTROL_CODE + amount + "B");
+            case FORWARD -> System.out.println(CONTROL_CODE + amount + "C");
+            case BACKWARD -> System.out.println(CONTROL_CODE + amount + "D");
+        }
     }
 
     /**
@@ -116,6 +126,8 @@ public class Terminal {
      * position.
      */
     public void setChar(char c) {
+        moveCursor(Direction.BACKWARD,1);
+        System.out.print(c);
     }
 
     /**
@@ -126,6 +138,13 @@ public class Terminal {
      *
      * @param commandString The unique part of a command sequence.
      */
+
+
+    public void blinkString() {
+        System.out.print("\033[2K");
+    }
+
     private void command(String commandString) {
     }
+
 }
