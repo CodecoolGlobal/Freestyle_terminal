@@ -1,7 +1,4 @@
 package com.codecool.termlib;
-
-import com.sun.jdi.InvalidTypeException;
-
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.InputMismatchException;
@@ -190,7 +187,7 @@ public class Main {
                 } catch (InputMismatchException e) {
                 }
 
-                if (stringLength > 0 && stringLength < 10) {
+                if (stringLength > 0 && stringLength <= 10) {
 
                 String corString=generateString(stringLength);
 
