@@ -108,10 +108,18 @@ public class Terminal {
     public void moveCursor(Direction direction, Integer amount) {
 
         switch(direction) {
-            case UP -> System.out.println(CONTROL_CODE + amount + "A");
-            case DOWN -> System.out.println(CONTROL_CODE + amount + "B");
-            case FORWARD -> System.out.println(CONTROL_CODE + amount + "C");
-            case BACKWARD -> System.out.println(CONTROL_CODE + amount + "D");
+            case UP:
+                System.out.println(CONTROL_CODE + amount + "A");
+                break;
+            case DOWN:
+                System.out.println(CONTROL_CODE + amount + "B");
+                break;
+            case FORWARD:
+                System.out.println(CONTROL_CODE + amount + "C");
+                break;
+            case BACKWARD:
+                System.out.println(CONTROL_CODE + amount + "D");
+                break;
         }
     }
 
