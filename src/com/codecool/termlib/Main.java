@@ -1,7 +1,10 @@
 package com.codecool.termlib;
 
+import com.sun.jdi.InvalidTypeException;
+
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -9,26 +12,37 @@ import java.util.Scanner;
 // If it's female(ends with A) color it magenta && if it's male, color with blue
 // Create a file with highest scores. As default set some  :low scores from 90 years old Alex and 90 years old Silviu: 1
 //  and highest score from 70 years old Alex: 2
-// Think of a transition between terminal demo and game demo
+// Think of a transition between mainTerminal demo and game demo
 // Error handling
 // ASCI art
 
 public class Main {
 
+
+
     public static void main(String [] args) throws Exception{
 
-        Terminal terminal = new Terminal();
+        Terminal mainTerminal = new Terminal();
+
+        game(mainTerminal);
+
+
+    }
+
+    private static void game(Terminal mainTerminal) throws InterruptedException {
+
         Scanner userInput = new Scanner(System.in);
 
         boolean gameRunning = true;
 
 
+
         while (gameRunning) {
 
-            terminal.clearScreen();
-            terminal.moveTo(1, 1);
+            mainTerminal.clearScreen();
+            mainTerminal.moveTo(1, 1);
 
-            terminal.setColor(Color.GREEN);
+            mainTerminal.setColor(Color.GREEN);
 
             String welcomeStr="Welcome";
 
@@ -36,74 +50,117 @@ public class Main {
 
             for (char l : welcomeStr.toCharArray()) {
                 if (l == 'W') {
-                    terminal.setColor(Color.GREEN);
+                    mainTerminal.setColor(Color.GREEN);
                     System.out.print(l);
                 } else if (l == 'e') {
-                    terminal.setColor(Color.YELLOW);
+                    mainTerminal.setColor(Color.YELLOW);
                     System.out.print(l);
                 } else if (l == 'l') {
-                    terminal.setColor(Color.BLUE);
+                    mainTerminal.setColor(Color.BLUE);
                     System.out.print(l);
                 } else if (l == 'c') {
-                    terminal.setColor(Color.CYAN);
+                    mainTerminal.setColor(Color.CYAN);
                     System.out.print(l);
                 } else if (l == 'o') {
-                    terminal.setColor(Color.YELLOW);
+                    mainTerminal.setColor(Color.YELLOW);
                     System.out.print(l);
                 } else if (l == 'm') {
-                    terminal.setColor(Color.RED);
+                    mainTerminal.setColor(Color.RED);
                     System.out.print(l);
                 }
+
             }
 
-            terminal.resetStyle();
+            mainTerminal.resetStyle();
 
             System.out.println(" to our Simion Says Game!");
-            System.out.println("Rules: Reproduce the colors");
-            terminal.setUnderline();
-            terminal.setDim();
-            terminal.setBgColor(Color.WHITE);
-            terminal.setColor(Color.BLUE);
-            System.out.print("How many colors you want to guess: ");
-            terminal.resetStyle();
+            mainTerminal.setUnderline();
+            System.out.println("RULES");
+            mainTerminal.resetStyle();
+            System.out.println("In this game you will have to reproduce a word pattern formed by a chosen number of letters, maximum ten. ");
+            System.out.println("Each letter represents a color:");
             System.out.println();
-            Scanner userLength=new Scanner(System.in);
-            int stringLength=userLength.nextInt();
-            String corString=generateString(stringLength);
+            colorString("y: yellow", mainTerminal, Color.YELLOW);
+            colorString("g: green", mainTerminal, Color.GREEN);
+            colorString("r: red", mainTerminal, Color.RED);
+            colorString("m: magenta", mainTerminal, Color.MAGENTA);
+            colorString("b: blue", mainTerminal, Color.BLUE);
+            colorString("c: cyan", mainTerminal, Color.CYAN);
+            mainTerminal.resetStyle();
+            System.out.println();
+            System.out.println("The letters will disappear after 5 seconds.");
 
-            terminal.resetStyle();
-            ActionListener taskPerformer=new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    //...Perform a task...
+            mainTerminal.resetStyle();
 
-                    terminal.hideString();
+            while(true) {
+
+                mainTerminal.setUnderline();
+                mainTerminal.setDim();
+                mainTerminal.setBgColor(Color.WHITE);
+                mainTerminal.setColor(Color.BLUE);
+                System.out.print("How many colors you want to guess: ");
+                mainTerminal.resetStyle();
+                System.out.println();
+
+                Scanner userLength=new Scanner(System.in);
+
+                int stringLength=0;
+                try {
+                    stringLength=userLength.nextInt();
+                } catch (InputMismatchException e) {
                 }
-            };
 
-            Timer timer=new Timer(2000, taskPerformer);
-            timer.setRepeats(false);
-            timer.start();
+                if (stringLength > 0 && stringLength < 10) {
 
-            Thread.sleep(5000);
-            terminal.moveCursor(Direction.BACKWARD, corString.length());
+                String corString=generateString(stringLength);
 
-            System.out.println("Enter the string:");
-            String userString=userInput.next();
-            if (userString.equalsIgnoreCase(corString)) {
-                System.out.println("You're good");
-            } else {
-                System.out.println("You're not good");
+                mainTerminal.resetStyle();
+                ActionListener taskPerformer=new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        //...Perform a task...
+
+                        mainTerminal.hideString();
+                    }
+                };
+
+                Timer timer=new Timer(2000, taskPerformer);
+                timer.setRepeats(false);
+                timer.start();
+
+                Thread.sleep(5000);
+                mainTerminal.moveCursor(Direction.BACKWARD, corString.length());
+
+                System.out.println("Enter the string:");
+                String userString=userInput.next();
+                mainTerminal.setUnderline();
+                if (userString.equalsIgnoreCase(corString)) {
+                    System.out.println("Congratulations! You're word is correct: " + corString);
+                } else {
+                    System.out.println("Sorry, you're answer is wrong. The correct string was: " + corString + ". Please try again.");
+                }
+
+                mainTerminal.resetStyle();
+                System.out.println();
+
+                System.out.println("Do you want to play another game? y/n ");
+                Scanner newGame=new Scanner(System.in);
+                String answer=newGame.nextLine();
+                if (answer.equals("n")) {
+                    System.out.println();
+                    gameRunning = false;
+                    break;
+                }
             }
-
-            System.out.println("Do you want to play another game? y/n ");
-            Scanner newGame = new Scanner(System.in);
-            String answer = newGame.nextLine();
-            gameRunning = answer.equals("y") ? true: false;
+                else {
+                    System.out.println("Invalid input. Try Again");
+                }
+            }
         }
 
     }
 
     private static String generateString(int strLength) {
+
 
         Terminal strTerminal = new Terminal();
 
@@ -149,5 +206,12 @@ public class Main {
         }
 
         return userString;
+    }
+
+    public static void colorString(String str, Terminal terminal, Color color) {
+
+        terminal.setColor(color);
+        System.out.println(str);
+
     }
 }

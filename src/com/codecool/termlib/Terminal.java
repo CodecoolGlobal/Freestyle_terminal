@@ -145,6 +145,8 @@ public class Terminal {
     }
 
     private void command(String commandString) {
+
+
     }
 
 }
