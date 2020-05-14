@@ -2,10 +2,16 @@ package com.codecool.termlib;
 
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Collections;
 
+
+// Request from user to enter a username
+// If it's female(ends with A) color it magenta && if it's male, color with blue
+// Create a file with highest scores. As default set some  :low scores from 90 years old Alex and 90 years old Silviu: 1
+//  and highest score from 70 years old Alex: 2
+// Think of a transition between terminal demo and game demo
+// Error handling
+// ASCI art
 
 public class Main {
 
@@ -70,7 +76,7 @@ public class Main {
                 public void actionPerformed(ActionEvent evt) {
                     //...Perform a task...
 
-                    terminal.blinkString();
+                    terminal.hideString();
                 }
             };
 
@@ -94,7 +100,6 @@ public class Main {
             String answer = newGame.nextLine();
             gameRunning = answer.equals("y") ? true: false;
         }
-
 
     }
 

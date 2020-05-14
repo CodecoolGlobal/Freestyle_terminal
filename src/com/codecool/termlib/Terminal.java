@@ -140,7 +140,7 @@ public class Terminal {
      */
 
 
-    public void blinkString() {
+    public void hideString() {
         System.out.print("\033[2K");
     }
 
