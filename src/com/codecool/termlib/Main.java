@@ -28,14 +28,17 @@ public class Main {
         while(true) {
             System.out.println("Welcome to our Java Freestyle Project");
             System.out.println("MENU");
-            System.out.println("1. Clear Screen and Exit");
+            System.out.println("1. Clear Screen");
             System.out.println("2. Set Font Color");
             System.out.println("3. Set Background Color");
             System.out.println("4. Set Underline");
             System.out.println("5. Set Dim");
             System.out.println("6. Move Cursor");
-            System.out.println("7. Simion Game");
-            System.out.println("0. Reset style");
+            System.out.println("7. Simon Game");
+            System.out.println("8. Reset style");
+            System.out.println("0. Exit");
+            System.out.println();
+            System.out.print("Enter your choice: ");
 
             Scanner userInput = new Scanner(System.in);
             int userSelection = userInput.nextInt();
@@ -43,8 +46,7 @@ public class Main {
             switch(userSelection) {
 
                 case 0:
-                    mainTerminal.resetStyle();
-                    break;
+                    System.exit(0);
                 case 1:
                     mainTerminal.clearScreen();
                     break;
@@ -103,6 +105,10 @@ public class Main {
 
                 case 7 :
                     game(mainTerminal);
+                    break;
+                case 8:
+                    mainTerminal.resetStyle();
+                    break;
             }
         }
 
@@ -150,7 +156,7 @@ public class Main {
 
             mainTerminal.resetStyle();
 
-            System.out.println(" to our Simion Says Game!");
+            System.out.println(" to our Simon Says Game!");
             mainTerminal.setUnderline();
             System.out.println("RULES");
             mainTerminal.resetStyle();
