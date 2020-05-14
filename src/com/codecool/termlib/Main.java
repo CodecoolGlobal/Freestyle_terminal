@@ -26,8 +26,12 @@ public class Main {
         Terminal mainTerminal = new Terminal();
 
         while(true) {
+            System.out.println();
             System.out.println("Welcome to our Java Freestyle Project");
+            System.out.println();
+            System.out.println();
             System.out.println("MENU");
+            System.out.println();
             System.out.println("1. Clear Screen");
             System.out.println("2. Set Font Color");
             System.out.println("3. Set Background Color");
@@ -38,77 +42,93 @@ public class Main {
             System.out.println("8. Reset style");
             System.out.println("0. Exit");
             System.out.println();
+
             System.out.print("Enter your choice: ");
 
             Scanner userInput = new Scanner(System.in);
-            int userSelection = userInput.nextInt();
+            int userSelection = -19;
 
-            switch(userSelection) {
+            try {
+                userSelection=userInput.nextInt();
+            } catch (InputMismatchException e) {
+            }
 
-                case 0:
-                    System.exit(0);
-                case 1:
-                    mainTerminal.clearScreen();
-                    break;
-                case 2:
-                    String[] acceptedColors={"GREEN", "YELLOW", "BLUE", "CYAN", "RED", "MAGENTA"};
-                    List<String> listOfColors=Arrays.asList(acceptedColors);
-                    System.out.println("Please enter a color for the font (green, yellow, blue, cyan, red, magenta): ");
-                    String chosenColor=userInput.next().toUpperCase();
-                        if (listOfColors.contains(chosenColor)) {
-                            mainTerminal.setColor(Color.valueOf(chosenColor));
-                        } else {
-                            System.out.println("Invalid color selection");
+            if (userSelection >= 0 && userSelection <= 10) {
+
+                switch (userSelection) {
+
+                    case 0:
+                        System.exit(0);
+                    case 1:
+                        mainTerminal.clearScreen();
+                        break;
+                    case 2:
+                        String[] acceptedColors={"GREEN", "YELLOW", "BLUE", "CYAN", "RED", "MAGENTA"};
+                        List<String> listOfColors=Arrays.asList(acceptedColors);
+                        System.out.print("Please enter a color for the font (green, yellow, blue, cyan, red, magenta): ");
+                        while (true) {
+                            String chosenColor=userInput.next().toUpperCase();
+                            if (listOfColors.contains(chosenColor)) {
+                                mainTerminal.setColor(Color.valueOf(chosenColor));
+                                break;
+                            } else {
+                                System.out.print("Please enter a valid color: ".toUpperCase());
+                            }
                         }
                         break;
 
-                case 3:
-                    String[] acceptedBgColors={"GREEN", "YELLOW", "BLUE", "CYAN", "RED", "MAGENTA"};
-                    List<String> listOfBgColors=Arrays.asList(acceptedBgColors);
-                    System.out.println("Please enter a color for the background (green, yellow, blue, cyan, red, magenta): ");
-                    String chosenColor2=userInput.next().toUpperCase();
-                        if (listOfBgColors.contains(chosenColor2)) {
-                            mainTerminal.setBgColor(Color.valueOf(chosenColor2));
-                        } else {
-                            System.out.println("Invalid color selection");
+                    case 3:
+                        String[] acceptedBgColors={"GREEN", "YELLOW", "BLUE", "CYAN", "RED", "MAGENTA"};
+                        List<String> listOfBgColors=Arrays.asList(acceptedBgColors);
+                        System.out.println("Please enter a color for the background (green, yellow, blue, cyan, red, magenta): ");
+                        while (true) {
+                            String chosenColor2=userInput.next().toUpperCase();
+                            if (listOfBgColors.contains(chosenColor2)) {
+                                mainTerminal.setBgColor(Color.valueOf(chosenColor2));
+                                break;
+                            } else {
+                                System.out.print("Please enter a valid color: ".toUpperCase());
+                            }
                         }
                         break;
 
-                case 4:
-                    mainTerminal.setUnderline();
-                    System.out.println("Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an " +
-                            "unknown printer took a galley of type and scrambled it to make a type specimen book. It has" +
-                            " survived not only five centuries, but also the leap into electronic");
-                    System.out.println();
-                    mainTerminal.resetStyle();
-                    break;
+                    case 4:
+                        mainTerminal.setUnderline();
+                        System.out.println("Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an " +
+                                "unknown printer took a galley of type and scrambled it to make a type specimen book. It has" +
+                                " survived not only five centuries, but also the leap into electronic");
+                        System.out.println();
+                        mainTerminal.resetStyle();
+                        break;
 
-                case 5:
-                    mainTerminal.setDim();
-                    System.out.println("Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an " +
-                            "unknown printer took a galley of type and scrambled it to make a type specimen book. It has" +
-                            " survived not only five centuries, but also the leap into electronic");
-                    System.out.println();
-                    mainTerminal.resetStyle();
-                    break;
+                    case 5:
+                        mainTerminal.setDim();
+                        System.out.println("Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an " +
+                                "unknown printer took a galley of type and scrambled it to make a type specimen book. It has" +
+                                " survived not only five centuries, but also the leap into electronic");
+                        System.out.println();
+                        break;
 
-                case 6:
-                    System.out.println("Please enter the direction(up, down, forward, backward): ");
-                    String direction = userInput.next().toUpperCase();
-                    System.out.println("Please enter the amount: ");
-                    int amount =userInput.nextInt();
-                    mainTerminal.moveCursor(Direction.valueOf(direction), amount);
-                    System.out.println("This is where you moved the cursor.");
-                    break;
+                    case 6:
+                        System.out.println("Please enter the direction(up, down, forward, backward): ");
+                        String direction=userInput.next().toUpperCase();
+                        System.out.println("Please enter the amount: ");
+                        int amount=userInput.nextInt();
+                        mainTerminal.moveCursor(Direction.valueOf(direction), amount);
+                        System.out.println("This is where you moved the cursor.");
+                        break;
 
-                case 7 :
-                    game(mainTerminal);
-                    break;
-                case 8:
-                    mainTerminal.resetStyle();
-                    break;
+                    case 7:
+                        game(mainTerminal);
+                        break;
+                    case 8:
+                        mainTerminal.resetStyle();
+                        break;
+                }
+            } else {
+                System.out.println("Invalid input. Try Again".toUpperCase());
             }
         }
 
@@ -171,7 +191,7 @@ public class Main {
             colorString("c: cyan", mainTerminal, Color.CYAN);
             mainTerminal.resetStyle();
             System.out.println();
-            System.out.println("The letters will disappear after 5 seconds.");
+            System.out.println("The letters will disappear after 2 seconds.");
 
             mainTerminal.resetStyle();
 
@@ -210,7 +230,7 @@ public class Main {
                 timer.setRepeats(false);
                 timer.start();
 
-                Thread.sleep(5000);
+                Thread.sleep(2400);
                 mainTerminal.moveCursor(Direction.BACKWARD, corString.length());
 
                 System.out.println("Enter the string:");
@@ -235,7 +255,7 @@ public class Main {
                 }
             }
                 else {
-                    System.out.println("Invalid input. Try Again");
+                    System.out.println("Invalid input. Try Again".toUpperCase());
                 }
             }
         }

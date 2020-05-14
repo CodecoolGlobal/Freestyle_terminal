@@ -43,6 +43,7 @@ public class Terminal {
      */
     public void clearScreen() {
         System.out.print(CONTROL_CODE + CLEAR);
+        moveTo(1, 5);
     }
 
     /**
