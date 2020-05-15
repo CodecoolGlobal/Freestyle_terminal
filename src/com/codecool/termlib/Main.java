@@ -7,14 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-// Request from user to enter a username
-// If it's female(ends with A) color it magenta && if it's male, color with blue
-// Create a file with highest scores. As default set some  :low scores from 90 years old Alex and 90 years old Silviu: 1
-//  and highest score from 70 years old Alex: 2
-// Think of a transition between mainTerminal demo and game demo
-// Error handling
-// ASCI art
-
 public class Main {
 
 
