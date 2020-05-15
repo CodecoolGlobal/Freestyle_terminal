@@ -230,7 +230,7 @@ public class Main {
                 timer.setRepeats(false);
                 timer.start();
 
-                Thread.sleep(2400);
+                Thread.sleep(2700);
                 mainTerminal.moveCursor(Direction.BACKWARD, corString.length());
 
                 System.out.println("Enter the string:");
