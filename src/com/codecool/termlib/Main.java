@@ -200,8 +200,8 @@ public class Main {
                 mainTerminal.setUnderline();
                 mainTerminal.setDim();
                 mainTerminal.setBgColor(Color.WHITE);
-                mainTerminal.setColor(Color.BLUE);
-                System.out.print("How many colors you want to guess: ");
+                mainTerminal.setColor(Color.RED);
+                System.out.print("\033[1mHow many colors you want to guess: ");
                 mainTerminal.resetStyle();
                 System.out.println();
 
