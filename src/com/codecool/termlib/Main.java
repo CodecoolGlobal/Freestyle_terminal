@@ -7,13 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
+
+
+
 public class Main {
 
 
-
     public static void main(String [] args) throws Exception{
-
-
 
         Terminal mainTerminal = new Terminal();
 
@@ -125,6 +126,16 @@ public class Main {
         }
 
     }
+
+
+    /**
+     *  A Simon Says game
+     *
+     *  A random colored string of certain letters which disappear after few seconds and has to be reproduced
+     *
+     * @param mainTerminal  the terminal where all the commands will run
+     * @throws InterruptedException
+     */
 
     private static void game(Terminal mainTerminal) throws InterruptedException {
 
@@ -254,6 +265,15 @@ public class Main {
 
     }
 
+    /**
+     * Use more colors to color a string
+     *
+     * Color with a different color each letter of a six letters string
+     *
+     * @param strLength
+     * @return A mixed color string for the Simon Game interface
+     */
+
     private static String generateString(int strLength) {
 
 
@@ -302,6 +322,17 @@ public class Main {
 
         return userString;
     }
+
+
+    /**
+     * Color a string
+     *
+     *  Change the color of a string to your desired color
+     *
+     * @param str  string you want to color
+     * @param terminal  a terminal object
+     * @param color  the color for the string
+     */
 
     public static void colorString(String str, Terminal terminal, Color color) {
 
